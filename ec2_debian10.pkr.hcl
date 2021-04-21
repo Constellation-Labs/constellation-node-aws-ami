@@ -47,7 +47,11 @@ build {
   }
 
   provisioner "ansible-local" {
-    playbook_file   = "./ansible/playbook_java8.yml"
+    playbook_file   = "./ansible/playbook_ec2.yml"
+    role_paths = [
+      "ansible/roles/java8",
+      "ansible/roles/fail2ban"
+    ]
     extra_arguments = ["--extra-vars", "\"should_become=${local.become}\""]
   }
 }

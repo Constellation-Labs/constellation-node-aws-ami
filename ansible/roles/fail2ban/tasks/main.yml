@@ -1,0 +1,21 @@
+- name: Install fail2ban
+  apt:
+    name: fail2ban
+    state: latest
+  become: "{{ should_become }}"
+
+- name: Copy sshd filter
+  copy:
+    src: "jail.d/sshd.local"
+    dest: /etc/fail2ban/jail.d/sshd.local
+    owner: root
+    group: root
+    mode: 0644
+  become: "{{ should_become }}"
+
+- name: Restart fail2ban service
+  service:
+    name: fail2ban
+    state: restarted
+    enabled: true
+  become: "{{ should_become }}"
